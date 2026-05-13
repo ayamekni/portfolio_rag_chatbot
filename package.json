@@ -1,0 +1,39 @@
+{
+  "name": "aya-portfolio-chatbot",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "next lint",
+    "embed": "ts-node scripts/build-index.ts"
+  },
+  "dependencies": {
+    "@huggingface/inference": "2.8.1",
+    "@xenova/transformers": "^2.17.2",
+    "dotenv": "^16.4.5",
+    "groq-sdk": "^0.33.0",
+    "marked": "12.0.2",
+    "next": "^14.2.33",
+    "node-fetch": "^3.3.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "20.12.12",
+    "@types/react": "18.2.66",
+    "@types/react-dom": "18.2.22",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "packageManager": "npm@10.8.1"
+}

@@ -1,0 +1,36 @@
+# Node / Next.js
+node_modules/
+.next/
+.turbo/
+dist/
+out/
+build/
+.vercel/
+
+# Environment & Secrets
+.env
+.env.local
+.env*.local
+
+# IDE & System
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Data — cv.md is private (phone, email, full CV text)
+# index.json MUST be committed — Vercel reads it at runtime for RAG
+data/cv.md
+data/index1.json
+
+# Scratch files
+jjj.py
