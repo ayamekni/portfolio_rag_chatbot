@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Retrieve relevant CV context (real semantic search)
-    const retrieved = await retrieveContext(userMsg, 8);
+    const retrieved = await retrieveContext(userMsg, 3);
     const context = retrieved.map((r, i) => `[${i + 1}] ${r.text}`).join("\n\n");
 
     // Init Groq inside handler — safe if env var is missing at module load
@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
       temperature: 0.7,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
-        ...messages.slice(-6),
+        ...messages.slice(-4),
         {
           role: "user",
           content: `Relevant context from Aya's CV:\n${context}\n\nQuestion: ${userMsg}`,
@@ -121,6 +121,12 @@ export async function POST(req: NextRequest) {
     const reply = response?.choices?.[0]?.message?.content?.trim() ?? "No response available.";
     return NextResponse.json({ reply, references: retrieved }, { headers });
   } catch (e: unknown) {
+    if (typeof e === "object" && e !== null && "status" in e && (e as { status: number }).status === 429) {
+      return NextResponse.json(
+        { reply: "I'm a little overwhelmed right now! 😅 Please try again in a few minutes, or reach Aya directly at aya.mekni@esprim.tn" },
+        { status: 200, headers },
+      );
+    }
     const msg = e instanceof Error ? e.message : "Server error";
     console.error("Chat route error:", msg);
     return NextResponse.json({ error: msg }, { status: 500, headers });
