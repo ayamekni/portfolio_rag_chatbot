@@ -9,54 +9,93 @@ export const runtime = "nodejs";
 
 const STATIC_FALLBACKS: { keywords: string[]; reply: string }[] = [
   {
-    keywords: ["who is aya", "who is she", "about aya", "tell me about", "introduce", "overview"],
+    keywords: [
+      "what does aya do", "who is aya", "what she do", "tell me about aya",
+      "introduce", "what is aya", "about aya", "about her", "who is she", "overview",
+    ],
     reply:
-      "**Aya Mekni** is an AI Engineer and Data Engineer based in Monastir, Tunisia. She is currently working full-time at **Roundesk** (since January 2026), building a multi-tenant agentic SaaS platform with LangGraph, MCP, ReAct, and multi-LLM routing. She is also completing her National Engineering Diploma in Computer Science at ESPRIM (GPA 15.12/20, graduating June 2026). She is open to AI Engineer, Data Engineer, and MLOps roles — on-site in Tunisia, relocation to Europe, or remote.",
+      "**Aya Mekni** is an AI Engineer and Data Engineer based in Monastir, Tunisia. She is currently working full-time at **Roundesk** (since January 2026), architecting a multi-tenant agentic SaaS platform with LangGraph, MCP, ReAct, and multi-LLM routing. She is also completing her National Engineering Diploma in Computer Science at **ESPRIM** (GPA 15.12/20, graduating June 2026). She won **1st place at GAICA 2025** with a real-time computer vision system built in 24 hours. She is open to AI Engineer, Data Engineer, and MLOps roles — on-site in Tunisia, relocation to Europe, or remote.",
   },
   {
-    keywords: ["project", "built", "portfolio", "work", "demo", "github"],
+    keywords: [
+      "best project", "show me her project", "main project", "top project",
+      "her projects", "projects", "what has she built", "her work", "demo", "github",
+    ],
     reply:
-      "Aya has built several notable projects spanning AI agents, RAG pipelines, document intelligence, and data engineering. Her current focus is on multi-tenant agentic infrastructure at Roundesk. For a detailed walkthrough of her projects — including tech stacks and live demos — explore the Projects section on this page or reach out at aya.mekni@esprim.tn.",
+      "Aya has built several standout projects:\n\n- **Vision-X** — real-time multi-camera tracking system (YOLOv8 + DeepSORT), 1st place at GAICA 2025\n- **ARIA** — multi-agent assistant with LangGraph, ReAct, and multi-LLM routing for Roundesk\n- **AdminDoc-X** — document intelligence platform with OCR and RAG-powered Q&A\n- **DATAFLOW** — end-to-end data engineering pipeline with Airflow, Spark, and Kafka\n\nExplore the Projects section on this page for live demos and full tech stacks!",
   },
   {
-    keywords: ["mlops", "pipeline", "airflow", "spark", "kafka", "data engineering", "etl"],
+    keywords: [
+      "mlops", "fit for mlops", "mlops role", "mlops engineer",
+      "pipeline", "airflow", "spark", "kafka", "data engineering", "etl", "deployment",
+    ],
     reply:
-      "Aya has hands-on experience with **MLOps and data engineering** tooling including Apache Airflow, Apache Spark, and Kafka. She has designed and maintained data pipelines as part of her engineering work, bridging the gap between raw data infrastructure and production AI systems.",
+      "Aya is a strong fit for MLOps roles. Her experience includes:\n\n- **Orchestration:** Apache Airflow for pipeline scheduling and monitoring\n- **Processing:** Apache Spark for large-scale distributed data transformations\n- **Streaming:** Kafka for real-time data ingestion\n- **Model serving:** deploying LLM-based systems in multi-tenant SaaS environments at Roundesk\n- **Infrastructure:** CI/CD integration, containerization, and production-grade system design\n\nShe bridges data infrastructure and AI delivery end-to-end.",
   },
   {
-    keywords: ["contact", "reach", "email", "linkedin", "hire", "available", "connect"],
+    keywords: [
+      "contact", "how can i contact", "reach her", "email",
+      "reach aya", "get in touch", "hire", "her contact", "conta", "linkedin", "available", "connect",
+    ],
     reply:
-      "The best ways to reach Aya are:\n- **Email:** aya.mekni@esprim.tn\n- **LinkedIn:** linkedin.com/in/aya-mekni\n\nShe is open to AI Engineer, Data Engineer, and MLOps opportunities — on-site in Tunisia, relocation to Europe, or remote internationally.",
+      "The best ways to reach Aya are:\n\n- **Email:** aya.mekni@esprim.tn\n- **LinkedIn:** linkedin.com/in/aya-mekni\n\nShe is open to AI Engineer, Data Engineer, and MLOps opportunities — on-site in Tunisia, relocation to Europe, or remote internationally. She'd love to hear from you!",
   },
   {
-    keywords: ["skill", "tech", "stack", "language", "framework", "tool", "python", "react", "langchain", "langgraph"],
+    keywords: [
+      "skills", "what can she do", "tech stack", "technologies",
+      "expertise", "what does she know", "her skills", "skill", "tool", "framework", "language",
+    ],
     reply:
-      "Aya's core skill areas include:\n- **LLM & Agents:** LangGraph, LangChain, MCP, ReAct, RAG architectures, multi-LLM routing\n- **Data Engineering:** Apache Airflow, Spark, Kafka, ETL pipelines\n- **Computer Vision & ML:** YOLOv8, DeepSORT, OCR, document intelligence\n- **Full-Stack:** React, Next.js, Django, Flask\n- **Languages:** Python, TypeScript, SQL",
+      "Aya's core skill areas:\n\n- **LLM & Agents:** LangGraph, LangChain, MCP, ReAct, RAG architectures, multi-LLM routing\n- **Data Engineering:** Apache Airflow, Spark, Kafka, ETL pipelines\n- **Computer Vision & ML:** YOLOv8, DeepSORT, OCR, document intelligence\n- **Full-Stack:** React, Next.js, Django, Flask — AI-integrated web apps\n- **Languages:** Python, TypeScript, SQL",
   },
   {
-    keywords: ["experience", "work", "job", "roundesk", "career", "intern", "internship", "company"],
+    keywords: [
+      "experience", "work experience", "where has she worked",
+      "companies", "internship", "jobs", "her experience", "worked", "job", "career", "company",
+    ],
     reply:
-      "Aya is currently an **AI Engineer at Roundesk** (January 2026 — present), where she architects a multi-tenant agentic SaaS platform using LangGraph, MCP, ReAct, and multi-LLM routing. Prior to this she completed engineering internships building AI-integrated applications with Django, Flask, and various LLM frameworks.",
+      "Aya's professional experience:\n\n- **Roundesk** — AI Engineer (Jan 2026 – present): multi-tenant agentic SaaS with LangGraph, MCP, multi-LLM routing\n- **CarthaPlay** — AI & Full-Stack intern: recommendation engine and LLM-integrated features\n- **AffriOffre** — Data Engineering intern: Airflow pipelines and data warehouse design\n- **Anypli** — Full-Stack intern: Django/React web application development\n\nHer internships span AI, data engineering, and full-stack development.",
   },
   {
-    keywords: ["education", "university", "esprim", "degree", "gpa", "graduate", "school", "study"],
+    keywords: [
+      "education", "where did she study", "university", "degree",
+      "gpa", "esprim", "school", "study", "studied", "graduate",
+    ],
     reply:
-      "Aya is completing a **National Engineering Diploma in Computer Science** at **ESPRIM** (graduating June 2026) with a GPA of **15.12/20**. She completed her pre-engineering studies at FSM, Monastir.",
+      "Aya is completing a **National Engineering Diploma in Computer Science** at **ESPRIM** (graduating June 2026) with a GPA of **15.12/20**. She completed her pre-engineering preparation at **FSM, Monastir**. Her coursework covers machine learning, data engineering, software architecture, and distributed systems.",
   },
   {
-    keywords: ["certification", "award", "hackathon", "gaica", "prize", "winner", "achievement"],
+    keywords: [
+      "certification", "certificates", "courses", "nvidia",
+      "microsoft", "datacamp", "anthropic", "certified", "award", "hackathon", "gaica", "achievement",
+    ],
     reply:
-      "Aya won **1st place at the GAICA 2025 AI Camera Challenge** — a 24-hour hackathon where she built a real-time computer vision system on NVIDIA GPUs using **YOLOv8** and **DeepSORT**. This was a competitive event with participants from across the region.",
+      "Aya holds certifications from:\n\n- **NVIDIA** — Deep Learning and Computer Vision\n- **Anthropic** — Building with Claude (AI safety & LLM development)\n- **Microsoft** — Azure AI and Data fundamentals\n- **DataCamp** — Data Engineering and Python\n\nShe also won **1st place at the GAICA 2025 AI Camera Challenge** — a 24-hour hackathon building real-time vision systems on NVIDIA GPUs.",
+  },
+  {
+    keywords: [
+      "number", "phone", "whatsapp", "call her", "telephone",
+    ],
+    reply:
+      "For direct contact, the best way to reach Aya is:\n\n- **Email:** aya.mekni@esprim.tn\n- **LinkedIn:** linkedin.com/in/aya-mekni\n\nShe'd love to hear from you! 😊",
+  },
+  {
+    keywords: [
+      "what can you", "what else", "help", "what do you know",
+      "capabilities", "what can i ask",
+    ],
+    reply:
+      "Great question! Here's what I can help you with:\n\n- 👩‍💻 **What Aya does** — her current role & background\n- 🚀 **Her projects** — Vision-X, ARIA, AdminDoc-X, DATAFLOW & more\n- 🛠️ **Her skills** — LLMs, RAG, MLOps, data engineering, full-stack\n- 💼 **Her experience** — Roundesk, CarthaPlay, AffriOffre, Anypli\n- 🎓 **Her education** — ESPRIM, GPA, modules\n- 📜 **Her certifications** — NVIDIA, Anthropic, Microsoft & more\n- 📬 **How to contact her** — email & LinkedIn\n\nWhat would you like to explore? 😊",
   },
 ];
 
 const GENERIC_FALLBACK =
-  "I am temporarily unable to answer — the AI service is unavailable right now. For anything urgent, reach Aya directly at aya.mekni@esprim.tn or linkedin.com/in/aya-mekni.";
+  "I'm taking a quick breather! 😅 But I can still answer questions about Aya's **projects, skills, experience, education,** or **how to contact her** — just ask! Or reach her directly at aya.mekni@esprim.tn";
 
-function matchFallback(msg: string): string | null {
-  const lower = msg.toLowerCase();
+function matchStaticFallback(msg: string): string | null {
+  const normalized = msg.toLowerCase().trim().replace(/[^a-z0-9\s]/g, "").replace(/\s+/g, " ");
   for (const entry of STATIC_FALLBACKS) {
-    if (entry.keywords.some(kw => lower.includes(kw))) {
+    if (entry.keywords.some(kw => normalized.includes(kw))) {
       return entry.reply;
     }
   }
@@ -144,17 +183,17 @@ You are Aya's personal AI assistant on her portfolio website — a warm, enthusi
 
 export async function POST(req: NextRequest) {
   const headers = corsHeaders(req.headers.get("origin") ?? undefined);
-  let userMsg = "";
+
+  // Parse body outside try/catch so userMsg is always available for static fallback matching
+  const body = await req.json().catch(() => ({}));
+  const messages = (body?.messages ?? []) as Message[];
+  const userMsg = messages.filter(m => m.role === "user").pop()?.content?.trim() ?? "";
+
+  if (!userMsg) {
+    return NextResponse.json({ error: "Empty message." }, { status: 400, headers });
+  }
 
   try {
-    const body = await req.json().catch(() => ({}));
-    const messages = (body?.messages ?? []) as Message[];
-    userMsg = messages.filter(m => m.role === "user").pop()?.content?.trim() ?? "";
-
-    if (!userMsg) {
-      return NextResponse.json({ error: "Empty message." }, { status: 400, headers });
-    }
-
     const retrieved = await retrieveContext(userMsg, 3);
     const context = retrieved.map((r, i) => `[${i + 1}] ${r.text}`).join("\n\n");
 
@@ -162,7 +201,7 @@ export async function POST(req: NextRequest) {
 
     const response = await groq.chat.completions.create({
       model: process.env.GROQ_MODEL ?? "llama-3.3-70b-versatile",
-      temperature: 0.7,
+      temperature: 0.6,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         ...messages.slice(-4),
@@ -176,18 +215,11 @@ export async function POST(req: NextRequest) {
     const reply = response?.choices?.[0]?.message?.content?.trim() ?? "No response available.";
     return NextResponse.json({ reply, references: retrieved }, { headers });
   } catch (e: unknown) {
-    const staticReply = matchFallback(userMsg);
+    const staticReply = matchStaticFallback(userMsg);
     if (staticReply) {
       return NextResponse.json({ reply: staticReply }, { status: 200, headers });
     }
-    if (typeof e === "object" && e !== null && "status" in e && (e as { status: number }).status === 429) {
-      return NextResponse.json(
-        { reply: "I'm a little overwhelmed right now. Please try again in a few minutes, or reach Aya directly at aya.mekni@esprim.tn" },
-        { status: 200, headers },
-      );
-    }
-    const msg = e instanceof Error ? e.message : "Server error";
-    console.error("Chat route error:", msg);
+    console.error("Chat route error:", e instanceof Error ? e.message : e);
     return NextResponse.json({ reply: GENERIC_FALLBACK }, { status: 200, headers });
   }
 }
