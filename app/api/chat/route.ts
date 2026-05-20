@@ -7,6 +7,62 @@ type Message = { role: ChatMessageRole; content: string };
 
 export const runtime = "nodejs";
 
+const STATIC_FALLBACKS: { keywords: string[]; reply: string }[] = [
+  {
+    keywords: ["who is aya", "who is she", "about aya", "tell me about", "introduce", "overview"],
+    reply:
+      "**Aya Mekni** is an AI Engineer and Data Engineer based in Monastir, Tunisia. She is currently working full-time at **Roundesk** (since January 2026), building a multi-tenant agentic SaaS platform with LangGraph, MCP, ReAct, and multi-LLM routing. She is also completing her National Engineering Diploma in Computer Science at ESPRIM (GPA 15.12/20, graduating June 2026). She is open to AI Engineer, Data Engineer, and MLOps roles — on-site in Tunisia, relocation to Europe, or remote.",
+  },
+  {
+    keywords: ["project", "built", "portfolio", "work", "demo", "github"],
+    reply:
+      "Aya has built several notable projects spanning AI agents, RAG pipelines, document intelligence, and data engineering. Her current focus is on multi-tenant agentic infrastructure at Roundesk. For a detailed walkthrough of her projects — including tech stacks and live demos — explore the Projects section on this page or reach out at aya.mekni@esprim.tn.",
+  },
+  {
+    keywords: ["mlops", "pipeline", "airflow", "spark", "kafka", "data engineering", "etl"],
+    reply:
+      "Aya has hands-on experience with **MLOps and data engineering** tooling including Apache Airflow, Apache Spark, and Kafka. She has designed and maintained data pipelines as part of her engineering work, bridging the gap between raw data infrastructure and production AI systems.",
+  },
+  {
+    keywords: ["contact", "reach", "email", "linkedin", "hire", "available", "connect"],
+    reply:
+      "The best ways to reach Aya are:\n- **Email:** aya.mekni@esprim.tn\n- **LinkedIn:** linkedin.com/in/aya-mekni\n\nShe is open to AI Engineer, Data Engineer, and MLOps opportunities — on-site in Tunisia, relocation to Europe, or remote internationally.",
+  },
+  {
+    keywords: ["skill", "tech", "stack", "language", "framework", "tool", "python", "react", "langchain", "langgraph"],
+    reply:
+      "Aya's core skill areas include:\n- **LLM & Agents:** LangGraph, LangChain, MCP, ReAct, RAG architectures, multi-LLM routing\n- **Data Engineering:** Apache Airflow, Spark, Kafka, ETL pipelines\n- **Computer Vision & ML:** YOLOv8, DeepSORT, OCR, document intelligence\n- **Full-Stack:** React, Next.js, Django, Flask\n- **Languages:** Python, TypeScript, SQL",
+  },
+  {
+    keywords: ["experience", "work", "job", "roundesk", "career", "intern", "internship", "company"],
+    reply:
+      "Aya is currently an **AI Engineer at Roundesk** (January 2026 — present), where she architects a multi-tenant agentic SaaS platform using LangGraph, MCP, ReAct, and multi-LLM routing. Prior to this she completed engineering internships building AI-integrated applications with Django, Flask, and various LLM frameworks.",
+  },
+  {
+    keywords: ["education", "university", "esprim", "degree", "gpa", "graduate", "school", "study"],
+    reply:
+      "Aya is completing a **National Engineering Diploma in Computer Science** at **ESPRIM** (graduating June 2026) with a GPA of **15.12/20**. She completed her pre-engineering studies at FSM, Monastir.",
+  },
+  {
+    keywords: ["certification", "award", "hackathon", "gaica", "prize", "winner", "achievement"],
+    reply:
+      "Aya won **1st place at the GAICA 2025 AI Camera Challenge** — a 24-hour hackathon where she built a real-time computer vision system on NVIDIA GPUs using **YOLOv8** and **DeepSORT**. This was a competitive event with participants from across the region.",
+  },
+];
+
+const GENERIC_FALLBACK =
+  "I am temporarily unable to answer — the AI service is unavailable right now. For anything urgent, reach Aya directly at aya.mekni@esprim.tn or linkedin.com/in/aya-mekni.";
+
+function matchFallback(msg: string): string | null {
+  const lower = msg.toLowerCase();
+  for (const entry of STATIC_FALLBACKS) {
+    if (entry.keywords.some(kw => lower.includes(kw))) {
+      return entry.reply;
+    }
+  }
+  return null;
+}
+
 function corsHeaders(origin?: string) {
   const allowed = (process.env.ALLOWED_ORIGINS ?? "")
     .split(",")
@@ -88,21 +144,20 @@ You are Aya's personal AI assistant on her portfolio website — a warm, enthusi
 
 export async function POST(req: NextRequest) {
   const headers = corsHeaders(req.headers.get("origin") ?? undefined);
+  let userMsg = "";
 
   try {
     const body = await req.json().catch(() => ({}));
     const messages = (body?.messages ?? []) as Message[];
-    const userMsg = messages.filter(m => m.role === "user").pop()?.content?.trim() ?? "";
+    userMsg = messages.filter(m => m.role === "user").pop()?.content?.trim() ?? "";
 
     if (!userMsg) {
       return NextResponse.json({ error: "Empty message." }, { status: 400, headers });
     }
 
-    // Retrieve relevant CV context (real semantic search)
     const retrieved = await retrieveContext(userMsg, 3);
     const context = retrieved.map((r, i) => `[${i + 1}] ${r.text}`).join("\n\n");
 
-    // Init Groq inside handler — safe if env var is missing at module load
     const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
     const response = await groq.chat.completions.create({
@@ -121,14 +176,18 @@ export async function POST(req: NextRequest) {
     const reply = response?.choices?.[0]?.message?.content?.trim() ?? "No response available.";
     return NextResponse.json({ reply, references: retrieved }, { headers });
   } catch (e: unknown) {
+    const staticReply = matchFallback(userMsg);
+    if (staticReply) {
+      return NextResponse.json({ reply: staticReply }, { status: 200, headers });
+    }
     if (typeof e === "object" && e !== null && "status" in e && (e as { status: number }).status === 429) {
       return NextResponse.json(
-        { reply: "I'm a little overwhelmed right now! 😅 Please try again in a few minutes, or reach Aya directly at aya.mekni@esprim.tn" },
+        { reply: "I'm a little overwhelmed right now. Please try again in a few minutes, or reach Aya directly at aya.mekni@esprim.tn" },
         { status: 200, headers },
       );
     }
     const msg = e instanceof Error ? e.message : "Server error";
     console.error("Chat route error:", msg);
-    return NextResponse.json({ error: msg }, { status: 500, headers });
+    return NextResponse.json({ reply: GENERIC_FALLBACK }, { status: 200, headers });
   }
 }
